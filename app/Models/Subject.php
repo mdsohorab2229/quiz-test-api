@@ -11,4 +11,13 @@ class Subject extends Model
     protected $fillable=[
         'name'
     ];
+
+    public function questionBank()
+    {
+        return $this->hasMany(QuestionBank::class);
+    }
+
+    public function quizList(){
+        return $this->hasMany(QuizList::class);
+    }
 }

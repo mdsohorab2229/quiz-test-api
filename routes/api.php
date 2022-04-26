@@ -8,6 +8,7 @@ use App\Http\Controllers\subjectController;
 use App\Http\Controllers\QuestionBankController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\QuizListController;
+use App\Http\Controllers\QuizCreateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,19 @@ Route::get('quiz/show/{id}',[QuizListController::class, 'show']);
 Route::put('quiz/update/{id}',[QuizListController::class, 'update']);
 Route::delete('quiz/delete/{id}',[QuizListController::class, 'destroy']);
 
+// quiz create list
+Route::get('quiz/create/list',[QuizCreateController::class, 'index']);
+Route::post('quiz/create/add',[QuizCreateController::class, 'store']);
+Route::get('quiz/create/show/{id}',[QuizCreateController::class, 'show']);
+Route::put('quiz/create/update/{id}',[QuizCreateController::class, 'update']);
+Route::delete('quiz/create/delete/{id}',[QuizCreateController::class, 'destroy']);
 
+// start quiz
+Route::get('start/quiz/list',[QuizCreateController::class, 'index']);
+Route::post('start/quiz/add',[QuizCreateController::class, 'store']);
+Route::get('start/quiz/show/{id}',[QuizCreateController::class, 'show']);
+Route::put('start/quiz/update/{id}',[QuizCreateController::class, 'update']);
+Route::delete('start/quiz/delete/{id}',[QuizCreateController::class, 'destroy']);
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

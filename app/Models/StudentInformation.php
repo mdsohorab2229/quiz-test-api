@@ -12,4 +12,8 @@ class StudentInformation extends Model
     protected $fillable=[
         'name','phone','email','password'
     ];
+
+    public function startquiz(){
+        return $this->hasMany(Startquiz::class);
+    }
 }

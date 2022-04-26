@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\QuestionBank;
-
-class QuestionBankController extends Controller
+use App\Models\StartQuiz;
+class StartQuizController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,18 +13,18 @@ class QuestionBankController extends Controller
      */
     public function index()
     {
-        $qbdata=QuestionBank::with('subject')->get();
-        if($qbdata !=null)
+        $sqdata=StartQuiz::all();
+        if($sqdata !=null)
         {
             return response()->json([
                 'status' =>true,
-                'question_bank'=>$qbdata
+                'start_quiz' => $sqdata
             ]);
         }
         else{
             return response()->json([
-                'qbdata' =>false,
-                'question_bank' =>null
+                'status' =>false,
+                'start_quiz' =>null
             ]);
         }
     }
@@ -37,7 +36,7 @@ class QuestionBankController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -49,36 +48,28 @@ class QuestionBankController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subject_id' =>'required',
-            'question' =>'required',
-            'option_a' =>'required',
-            'option_b' =>'required',
-            'option_c' =>'required',
-            'option_d' =>'required',
+            'student_id' =>'required',
+            'quiz_create_id' =>'required',
+            'wrong_ans' =>'required',
             'right_ans' =>'required',
-            
         ]);
-        $qbdata=new QuestionBank();
-        $qbdata->subject_id=$request->subject_id;
-        $qbdata->question=$request->question;
-        $qbdata->option_a=$request->option_a;
-        $qbdata->option_b=$request->option_b;
-        $qbdata->option_c=$request->option_c;
-        $qbdata->option_d=$request->option_d;
-        $qbdata->right_ans=$request->right_ans;
-        
-        if($qbdata->save())
+        $sqdata=new StartQuiz();
+        $sqdata->student_id=$request->student_id;
+        $sqdata->quiz_create_id=$request->quiz_create_id;
+        $sqdata->wrong_ans=$request->wrong_ans;
+        $sqdata->right_ans=$request->right_ans;
+        if($sqdata->save())
         {
             return response()->json([
                 'status' =>true,
-                'question_bank' =>$qbdata,
-                'message'=>'Question  save success fully'
+                'start_quiz' =>$sqdata,
+                'message'=>'Start Quiz save success fully'
             ]);
         }
         else{
             return response()->json([
                 'status'=>false,
-                'question_bank'=>null
+                'start_quiz'=>null
             ]);
         }
     }
@@ -115,36 +106,29 @@ class QuestionBankController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'subject_id' =>'required',
-            'question' =>'required',
-            'option_a' =>'required',
-            'option_b' =>'required',
-            'option_c' =>'required',
-            'option_d' =>'required',
-            'right_ans' =>'required',
-            
+            'student_id' =>'required',
+            'quiz_create_id' =>'required',
+            'student_id' =>'required',
+            'student_id' =>'required',
         ]);
-        $qbdata=new QuestionBank();
-        $qbdata->subject_id=$request->subject_id;
-        $qbdata->question=$request->question;
-        $qbdata->option_a=$request->option_a;
-        $qbdata->option_b=$request->option_b;
-        $qbdata->option_c=$request->option_c;
-        $qbdata->option_d=$request->option_d;
-        $qbdata->right_ans=$request->right_ans;
-        
-        if($qbdata->save())
+
+        $sqdata=StartQuiz::findorfail($id);
+        $sqdata->student_id=$request->student_id;
+        $sqdata->quiz_create_id=$request->quiz_create_id;
+        $sqdata->wrong_ans=$request->wrong_ans;
+        $sqdata->right_ans=$request->right_ans;
+        if($sqdata->save())
         {
             return response()->json([
                 'status' =>true,
-                'question_bank' =>$qbdata,
-                'message'=>'Question  save success fully'
+                'start_quiz' =>$sqdata,
+                'message'=>'Start Quiz update success fully'
             ]);
         }
         else{
             return response()->json([
                 'status'=>false,
-                'question_bank'=>null
+                'start_quiz'=>null
             ]);
         }
     }
@@ -157,19 +141,19 @@ class QuestionBankController extends Controller
      */
     public function destroy($id)
     {
-        $qbdata=QuestionBank::findorfail($id);
-        if($qbdata->delete())
+        $sqdata=StartQuiz::findorfail($id);
+        if($sqdata->delete())
         {
             return response()->json([
                 'status' =>true,
-                'question_bank' =>$qbdata,
-                'message' =>'Question  delete success fully'
+                'start_quiz' =>$sqdata,
+                'message' =>'Start Quiz delete success fully'
             ]);
         }
         else{
             return response()->json([
                 'status' =>false,
-                'question_bank' =>null,
+                'start_quiz' =>null
             ]);
         }
     }

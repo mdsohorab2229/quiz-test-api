@@ -13,7 +13,7 @@ class QuizListController extends Controller
      */
     public function index()
     {
-        $qldata=QuizList::all();
+        $qldata=QuizList::with('subject')->get();
         if($qldata !=null)
         {
             return response()->json([
@@ -25,7 +25,7 @@ class QuizListController extends Controller
             return response()->json([
                 'qldata' =>false,
                 'quiz_list' =>null
-            ]);
+            ]); 
         }
     }
 

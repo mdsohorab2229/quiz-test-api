@@ -12,4 +12,15 @@ class QuestionBank extends Model
     protected $fillable=[
         'subject_id','question','option_a','option_b','option_c','option_d','right_ans'
     ];
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+    public function quizCreate()
+    {
+        return $this->hasMany(QuizCreate::class);
+    }
+
+    
 }

@@ -12,4 +12,12 @@ class QuizList extends Model
     protected $fillable=[
         'title','subject_id','per_question_mark','total_mark','total_quetion'
     ];
+
+    public function subject(){
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function quizCreate(){
+        return $this->hasMany(QuizCreate::class);
+    }
 }
